@@ -16,7 +16,7 @@ class RunLengthEncoding
       if char == buf_char
         buf_count += 1
       else
-        out = flush(out, buf_char, buf_count)
+        flush(out, buf_char, buf_count)
         buf_char = char
         buf_count = 1
       end
@@ -28,8 +28,8 @@ class RunLengthEncoding
   def self.flush(str, char, count)
     case count
     when 0 then str
-    when 1 then str + char
-    else str + count.to_s + char
+    when 1 then str << char
+    else str << "#{count}#{char}"
     end
   end
 
