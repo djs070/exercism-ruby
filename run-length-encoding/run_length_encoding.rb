@@ -10,16 +10,16 @@ class RunLengthEncoding
   def self.encode(input)
     buf_char = ''
     buf_count = 0
+    out = ''
 
-    out = input.each_char.reduce('') do |acc, char|
+    input.each_char do |char|
       if char == buf_char
         buf_count += 1
       else
-        acc = flush(acc, buf_char, buf_count)
+        out = flush(out, buf_char, buf_count)
         buf_char = char
         buf_count = 1
       end
-      acc
     end
 
     flush(out, buf_char, buf_count)
@@ -29,8 +29,17 @@ class RunLengthEncoding
     case count
     when 0 then str
     when 1 then str + char
-    else str + "#{count.to_s}#{char}"
+    else str + count.to_s + char
     end
+  end
+
+  # Alternate implementation using nice functional methods
+  # for benchmarking
+  def self.encode_alt(input)
+    input.each_char
+         .chunk {|c| c}
+         .map {|k, v| v.length > 1 ? v.length.to_s + k : k }
+         .join
   end
 
   def self.decode(input)
