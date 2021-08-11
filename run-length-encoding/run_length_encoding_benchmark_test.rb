@@ -3,16 +3,12 @@ require 'minitest/benchmark'
 require_relative 'run_length_encoding'
 
 class RunLengthEncodingBenchmark < Minitest::Benchmark
-  # def bench_range
-  #   [1, 10, 100, 1_000, 10_000].map do |len|
-  #     (0...len).map { (65 + rand(26)).chr }.join
-  #   end
-  # end
-  #
   REPEATS = 100
 
   def random_string(len)
-    (0...len).map { (65 + rand(26)).chr }.join
+    # Generates random strings only consisting of "ABC"
+    # to ensure high enough repetition rate
+    (0...len).map { (65 + rand(3)).chr }.join
   end
 
   def bench_encode

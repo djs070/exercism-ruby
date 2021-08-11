@@ -25,6 +25,9 @@ class RunLengthEncoding
     flush(out, buf_char, buf_count)
   end
 
+  # Flush an encoded character run to output
+  # e.g. flush("A", "B", 2) => "ABB"
+  # Mutates str in-place to drastically improve performance (10x)
   def self.flush(str, char, count)
     case count
     when 0 then str
