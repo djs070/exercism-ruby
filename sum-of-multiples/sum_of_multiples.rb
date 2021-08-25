@@ -11,7 +11,7 @@ class SumOfMultiples
     @multiplicands.each do |m|
       next if m < 1
 
-      multiple = 0
+      multiple = m
       while multiple < limit
         set.add(multiple)
         multiple += m
